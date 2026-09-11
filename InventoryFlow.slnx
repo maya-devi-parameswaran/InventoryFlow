@@ -1,0 +1,16 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="docker-compose.yml" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/InventoryFlow.Api/InventoryFlow.Api.csproj" />
+    <Project Path="src/InventoryFlow.Application/InventoryFlow.Application.csproj" />
+    <Project Path="src/InventoryFlow.Domain/InventoryFlow.Domain.csproj" />
+    <Project Path="src/InventoryFlow.Infrastructure/InventoryFlow.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/InventoryFlow.Application.Tests/InventoryFlow.Application.Tests.csproj" />
+    <Project Path="tests/InventoryFlow.Domain.Tests/InventoryFlow.Domain.Tests.csproj" />
+    <Project Path="tests/InventoryFlow.IntegrationTests/InventoryFlow.IntegrationTests.csproj" />
+  </Folder>
+</Solution>
