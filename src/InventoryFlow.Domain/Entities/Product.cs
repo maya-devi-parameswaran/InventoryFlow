@@ -4,7 +4,7 @@ using InventoryFlow.Domain.Exceptions;
 
 namespace InventoryFlow.Domain.Entities;
 
-public class Product : BaseEntity
+public class Product : BaseEntity, IAggregateRoot
 {
     public string Sku { get; private set; } = default!;
     public string Name { get; private set; } = default!;

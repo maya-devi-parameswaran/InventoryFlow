@@ -11,11 +11,14 @@ public class UnitOfWork : IUnitOfWork
     public IOrderRepository Orders { get; }
     public IStockItemRepository StockItems { get; }
 
+    public IProductRepository Products { get; }
+
     public UnitOfWork(ApplicationDbContext context)
     {
         _context = context;
         Orders = new OrderRepository(context);
         StockItems = new StockItemRepository(context);
+        Products = new ProductRepository(context);
     }
 
     public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

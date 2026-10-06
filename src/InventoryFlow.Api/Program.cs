@@ -1,6 +1,11 @@
+using FluentValidation;
+using InventoryFlow.Application.Common.Behaviors;
+using InventoryFlow.Application.Common.Behaviours;
 using InventoryFlow.Application.Common.Interfaces;
+using InventoryFlow.Application.Features.Products.Commands.CreateProduct;
 using InventoryFlow.Infrastructure.Identity;
 using InventoryFlow.Infrastructure.Persistence;
+using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -90,6 +95,14 @@ builder.Services.AddAuthorization();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddScoped<ITokenService, TokenService>();
+
+builder.Services.AddMediatR(cfg =>
+    cfg.RegisterServicesFromAssembly(typeof(CreateProductCommand).Assembly));
+
+builder.Services.AddValidatorsFromAssembly(typeof(CreateProductCommand).Assembly);
+
+builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
+builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehaviour<,>));
 
 var app = builder.Build();
 
