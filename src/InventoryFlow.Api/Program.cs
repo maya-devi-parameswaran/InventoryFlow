@@ -122,6 +122,8 @@ if (app.Environment.IsDevelopment())
     });
 }
 
+app.UseMiddleware<InventoryFlow.Api.Middleware.ExceptionHandlingMiddleware>();
+
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
