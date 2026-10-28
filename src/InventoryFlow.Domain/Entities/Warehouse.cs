@@ -3,7 +3,7 @@ using InventoryFlow.Domain.Exceptions;
 
 namespace InventoryFlow.Domain.Entities;
 
-public class Warehouse : BaseEntity
+public class Warehouse : BaseEntity, IAggregateRoot
 {
     public string Name { get; private set; } = default!;
     public string Location { get; private set; } = default!;

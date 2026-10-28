@@ -13,12 +13,15 @@ public class UnitOfWork : IUnitOfWork
 
     public IProductRepository Products { get; }
 
+    public IWarehouseRepository Warehouses { get; }
+
     public UnitOfWork(ApplicationDbContext context)
     {
         _context = context;
         Orders = new OrderRepository(context);
         StockItems = new StockItemRepository(context);
         Products = new ProductRepository(context);
+        Warehouses = new WarehouseRepository(context);
     }
 
     public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
