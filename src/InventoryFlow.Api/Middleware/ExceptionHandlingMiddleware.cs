@@ -1,4 +1,5 @@
-﻿using InventoryFlow.Domain.Exceptions;
+﻿using InventoryFlow.Application.Common.Exceptions;
+using InventoryFlow.Domain.Exceptions;
 using System.Net;
 using System.Text.Json;
 using ApplicationValidationException = InventoryFlow.Application.Common.Exceptions.ValidationException;
@@ -43,6 +44,11 @@ public class ExceptionHandlingMiddleware
             InsufficientStockException stockEx => (
                 HttpStatusCode.Conflict,
                 new { title = "Insufficient stock", detail = stockEx.Message, errors = (object?)null }
+            ),
+
+            ConcurrencyException => (
+                HttpStatusCode.Conflict,
+                new { title = "Conflict", detail = "The resource was modified by another request. Please retry.", errors = (object?)null }
             ),
 
             DomainException domainEx => (

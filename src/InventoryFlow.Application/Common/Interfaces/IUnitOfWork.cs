@@ -6,6 +6,7 @@ public interface IUnitOfWork
     IStockItemRepository StockItems { get; }
     IProductRepository Products { get; }
     IWarehouseRepository Warehouses { get; }
+    void ClearChangeTracker();
 
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 }

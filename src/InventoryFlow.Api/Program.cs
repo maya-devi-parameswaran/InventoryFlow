@@ -1,4 +1,5 @@
 using FluentValidation;
+using InventoryFlow.Api.Services;
 using InventoryFlow.Application.Common.Behaviors;
 using InventoryFlow.Application.Common.Behaviours;
 using InventoryFlow.Application.Common.Interfaces;
@@ -103,6 +104,10 @@ builder.Services.AddValidatorsFromAssembly(typeof(CreateProductCommand).Assembly
 
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehaviour<,>));
+
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
+
 
 var app = builder.Build();
 
