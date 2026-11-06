@@ -1,6 +1,8 @@
 ﻿// Persistence/UnitOfWork.cs
+using InventoryFlow.Application.Common.Exceptions;
 using InventoryFlow.Application.Common.Interfaces;
 using InventoryFlow.Infrastructure.Persistence.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace InventoryFlow.Infrastructure.Persistence;
 
@@ -24,8 +26,17 @@ public class UnitOfWork : IUnitOfWork
         Warehouses = new WarehouseRepository(context);
     }
 
-    public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
-        => _context.SaveChangesAsync(cancellationToken);
+    public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            return await _context.SaveChangesAsync(cancellationToken);
+        }
+        catch (DbUpdateConcurrencyException ex) 
+        {
+            throw new ConcurrencyException("The data was modified by another request.", ex);
+        }       
+    }
 
     public void ClearChangeTracker()
     {

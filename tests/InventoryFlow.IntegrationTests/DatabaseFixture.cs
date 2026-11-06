@@ -16,6 +16,17 @@ public class DatabaseFixture : IAsyncLifetime
 
     public ApplicationDbContext Context { get; private set; } = default!;
 
+    // New: lets tests create independent contexts against the same container
+    public string ConnectionString => _container.GetConnectionString();
+    public ApplicationDbContext CreateContext()
+    {
+        var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+            .UseNpgsql(ConnectionString)
+            .Options;
+
+        return new ApplicationDbContext(options);
+    }
+
     public async Task InitializeAsync()
     {
         await _container.StartAsync();
